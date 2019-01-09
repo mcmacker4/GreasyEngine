@@ -1,0 +1,3 @@
+[submodule "Greasy/vendor/sdl"]
+	path = Greasy/vendor/sdl
+	url = https://github.com/mcmacker4/SDL-mirror
