@@ -1,0 +1,3 @@
+[submodule "Greasy/vendor/glfw"]
+	path = Greasy/vendor/glfw
+	url = https://github.com/mcmacker4/glfw
