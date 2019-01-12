@@ -1,3 +1,0 @@
-
-
-API void greet();

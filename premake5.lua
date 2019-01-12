@@ -92,9 +92,6 @@ project "Sandbox"
         staticruntime "On"
         defines { "GR_WINDOWS" }
         systemversion "latest"
---        prebuildcommands {
---            "{COPY} Build/%{cfg.system}-%{cfg.buildcfg}/Greasy/Greasy.dll Build/%{cfg.system}-%{cfg.buildcfg}/%{prj.name}/Greasy.dll"
---        }
     
     filter "system:linux"
         defines { "GR_LINUX" }
