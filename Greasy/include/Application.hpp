@@ -6,17 +6,17 @@
 namespace Greasy {
 
 	class API Application {
-			
+
 		Window* window;
 
 	public:
-		virtual ~Application();
 
-		virtual void Update() = 0;
+		virtual ~Application();
 
 		const Window* GetWindow() const;
 
-		static void Start(Application* application);
+		void Start();
+		virtual void Update();
 
 	private:
 

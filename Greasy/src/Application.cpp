@@ -21,7 +21,7 @@ namespace Greasy {
 		this->window = new Window();
 	}
 
-	void Application::Start(Application* application) {
+	void Application::Start() {
 
 		GR_LOG_INFO("Initializing Application.");
 
@@ -30,11 +30,11 @@ namespace Greasy {
 			if (!glfwInit())
 				throw "Could not initialize GLFW.";
 
-			application->CreateWindow();
-			auto window = application->GetWindow();
+			CreateWindow();
+			auto window = GetWindow();
 			while (!window->ShouldClose()) {
 				glfwPollEvents();
-				application->Update();
+				Update();
 			}
 
 		} catch (const char* msg) {
@@ -43,7 +43,8 @@ namespace Greasy {
 
 		}
 
-
 	}
+
+	void Application::Update() {}
 
 }

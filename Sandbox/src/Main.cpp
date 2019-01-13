@@ -1,17 +1,10 @@
 #include <Greasy.hpp>
 
-class Sandbox : public Greasy::Application {
-	
-public:
-
-	void Update() {}
-
-};
+class Sandbox : public Greasy::Application {};
 
 
 int main() {
 	auto application = new Sandbox();
-	Greasy::Application::Start(application);
-
+	application->Start();
 	delete application;
 }
