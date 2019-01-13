@@ -17,3 +17,8 @@ project "glad"
 
     filter "system:windows"
         systemversion "latest"
+        links { "opengl32.lib" }
+
+    filter "system:linux"
+        links { "GL" }
+        buildoptions { "-fPIC" }

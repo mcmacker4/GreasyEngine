@@ -34,8 +34,7 @@ project "Greasy"
 
     links {
         "glfw",
-        "glad",
-        "opengl32.lib"
+        "glad"
     }
 
     filter "configurations:Debug"
@@ -53,7 +52,7 @@ project "Greasy"
     
     filter "system:linux"
         defines { "GR_LINUX" }
-        links { "X11", "m", "rt" }
+        links { "X11", "m", "rt", "GL" }
 
 project "Sandbox"
     kind "ConsoleApp"

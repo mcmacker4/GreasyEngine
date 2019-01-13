@@ -6,7 +6,7 @@
 namespace Greasy {
 
 	Window::Window() {
-		this->window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
+		this->window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
 		if (this->window == NULL) {
 			throw "Error creating window";
 		}
@@ -16,7 +16,7 @@ namespace Greasy {
 			throw "Error loading GLAD.";
 		}
 
-		glViewport(0, 0, 1280, 720);
+		glViewport(0, 0, 800, 600);
 		glClearColor(0.3f, 0.6f, 0.9f, 1.0f);
 	}
 
