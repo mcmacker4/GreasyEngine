@@ -7,12 +7,13 @@ struct GLFWwindow;
 namespace Greasy {
 
 	class API Window {
-		GLFWwindow* _window;
+		GLFWwindow* window;
 
 	public:
 		Window();
 		~Window();
 
+		void Update();
 		bool ShouldClose() const;
 		void Close();
 	};

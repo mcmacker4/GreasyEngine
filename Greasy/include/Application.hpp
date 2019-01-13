@@ -9,16 +9,23 @@ namespace Greasy {
 
 		Window* window;
 
+		static Application* application;
+
 	public:
 
-		virtual ~Application();
+		Application();
+		~Application();
 
-		const Window* GetWindow() const;
+		static void Start();
 
-		void Start();
-		virtual void Update();
+		static Application& Get();
 
 	private:
+
+		void Initialize();
+
+		void Run();
+		void Update();
 
 		void CreateWindow();
 

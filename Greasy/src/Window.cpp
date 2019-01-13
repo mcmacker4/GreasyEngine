@@ -6,24 +6,35 @@
 namespace Greasy {
 
 	Window::Window() {
-		this->_window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
-		if(this->_window == NULL)
+		this->window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
+		if (this->window == NULL) {
 			throw "Error creating window";
+		}
 
-		glfwMakeContextCurrent(this->_window);
+		glfwMakeContextCurrent(this->window);
+		if(!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+			throw "Error loading GLAD.";
+		}
+
+		glViewport(0, 0, 1280, 720);
+		glClearColor(0.3f, 0.6f, 0.9f, 1.0f);
 	}
 
 	Window::~Window() {
 		GR_LOG_INFO("Destroying window.");
-		glfwDestroyWindow(_window);
+		glfwDestroyWindow(window);
+	}
+
+	void Window::Update() {
+		glfwSwapBuffers(window);
 	}
 
 	bool Window::ShouldClose() const {
-		return glfwWindowShouldClose(_window) == GLFW_TRUE;
+		return glfwWindowShouldClose(window) == GLFW_TRUE;
 	}
 
 	void Window::Close() {
-		return glfwSetWindowShouldClose(_window, GLFW_TRUE);
+		return glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
 
 }

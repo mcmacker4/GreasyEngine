@@ -7,6 +7,7 @@ workspace "GreasyEngine"
     configurations { "Release", "Debug" }
 
 include "Greasy/vendor/glfw"
+include "Greasy/vendor/glad"
 
 project "Greasy"
     kind "SharedLib"
@@ -27,11 +28,14 @@ project "Greasy"
     includedirs {
         "%{prj.name}/src/",
         "%{prj.name}/include/",
-        "%{prj.name}/vendor/glfw/include"
+        "%{prj.name}/vendor/glfw/include",
+        "%{prj.name}/vendor/glad/include"
     }
 
     links {
-        "GLFW"
+        "glfw",
+        "glad",
+        "opengl32.lib"
     }
 
     filter "configurations:Debug"
