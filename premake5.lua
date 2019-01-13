@@ -27,7 +27,7 @@ project "Greasy"
     includedirs {
         "%{prj.name}/src/",
         "%{prj.name}/include/",
-        "%{prj.name}/vendor/GLFW/include"
+        "%{prj.name}/vendor/glfw/include"
     }
 
     links {
@@ -49,6 +49,7 @@ project "Greasy"
     
     filter "system:linux"
         defines { "GR_LINUX" }
+        links { "X11", "m", "rt" }
 
 project "Sandbox"
     kind "ConsoleApp"
@@ -76,10 +77,6 @@ project "Sandbox"
         "Greasy"
     }
 
-    prebuildcommands {
-        "{COPY} %{cfg.buildtarget.directory}../Greasy/Greasy.dll %{cfg.buildtarget.directory}"
-    }
-
     filter "configurations:Debug"
         defines { "GR_DEBUG" }
         symbols "On"
@@ -92,6 +89,10 @@ project "Sandbox"
         staticruntime "On"
         defines { "GR_WINDOWS" }
         systemversion "latest"
+        prebuildcommands {
+            "{COPY} %{cfg.buildtarget.directory}../Greasy/Greasy.dll %{cfg.buildtarget.directory}"
+        }
     
     filter "system:linux"
         defines { "GR_LINUX" }
+        links { "X11", "m", "rt" }
