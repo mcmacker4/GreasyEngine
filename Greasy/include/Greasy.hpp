@@ -32,7 +32,9 @@
 
 #include <iostream>
 #include <cassert>
+#include <stack>
 
 #include "Application.hpp"
 #include "Window.hpp"
+#include "Layers.hpp"
 

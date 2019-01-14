@@ -7,7 +7,19 @@ namespace Greasy {
 
 	Application* Application::application;
 
-	Application::Application() {}
+	Application::Application() {
+		GR_LOG_INFO("Initializing Application.");
+		try {
+			if (!glfwInit())
+				throw "Could not initialize GLFW.";
+			CreateWindow();
+			assert(window);
+
+			layers = new LayerStack;
+		} catch (const char* msg) {
+			GR_LOG_ERROR(msg);
+		}
+	}
 
 	Application::~Application() {
 		delete window;
@@ -18,18 +30,6 @@ namespace Greasy {
 	void Application::CreateWindow() {
 		GR_LOG_INFO("Creating window.");
 		this->window = new Window();
-	}
-
-	void Application::Initialize() {
-		GR_LOG_INFO("Initializing Application.");
-		try {
-			if (!glfwInit())
-				throw "Could not initialize GLFW.";
-			CreateWindow();
-			assert(window);
-		} catch (const char* msg) {
-			GR_LOG_ERROR(msg);
-		}
 	}
 
 	void Application::Run() {
@@ -43,17 +43,28 @@ namespace Greasy {
 
 	void Application::Update() {
 		window->Update();
+		LayerStackIterator iterator(layers);
+		while(iterator.HasNext()) {
+			iterator.Next()->Update();
+		}
 	}
 
-	void Application::Start() {
-		Application::application = new Application;
-		application->Initialize();
-		application->Run();
-		delete Application::application;
+	void Application::Render() {
+		LayerStackIterator iterator(layers);
+		while(iterator.HasNext()) {
+			iterator.Next()->Render();
+		}
 	}
 
 	Application& Application::Get() {
 		return *application;
+	}
+
+	void Start() {
+		assert(!Application::application);
+		Application::application = CreateApplication();
+		Application::application->Run();
+		delete Application::application;
 	}
 
 }

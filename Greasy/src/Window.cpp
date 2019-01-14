@@ -1,7 +1,9 @@
 #include <Greasy.hpp>
 
 #include "../include/Window.hpp"
-#include "Window.hpp"
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace Greasy {
 
@@ -21,8 +23,8 @@ namespace Greasy {
 	}
 
 	Window::~Window() {
-		GR_LOG_INFO("Destroying window.");
 		glfwDestroyWindow(window);
+		GR_LOG_INFO("Window destroyed.");
 	}
 
 	void Window::Update() {

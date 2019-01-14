@@ -8,28 +8,36 @@ namespace Greasy {
 	class API Application {
 
 		Window* window;
+		LayerStack* layers;
 
 		static Application* application;
 
 	public:
 
 		Application();
-		~Application();
+		virtual ~Application();
 
-		static void Start();
+		virtual void Update();
+		virtual void Render();
+
+		void PushLayer(Layer*);
+		Layer* PopLayer();
 
 		static Application& Get();
 
 	private:
 
-		void Initialize();
-
 		void Run();
-		void Update();
 
 		void CreateWindow();
 
+		friend void Start();
+
 	};
+
+	extern Application* CreateApplication();
+
+	void Start();
 
 }
 
