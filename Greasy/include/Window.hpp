@@ -1,6 +1,7 @@
 #ifndef H_WINDOW_PUB
 #define H_WINDOW_PUB
 
+#include "./Core.hpp"
 
 struct GLFWwindow;
 

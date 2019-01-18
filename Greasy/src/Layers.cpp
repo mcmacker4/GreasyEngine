@@ -1,6 +1,10 @@
-#include <Greasy.hpp>
+#include "../include/Layers.hpp"
 
 namespace Greasy {
+
+	/*
+		LayerStack
+	*/
 
     void LayerStack::Push(Layer* layer) {
         stack.push(layer);
@@ -12,10 +16,27 @@ namespace Greasy {
         return popped;
     }
 
+	void LayerStack::Render() {
+		LayerStackIterator iter(this);
+		while (iter.HasNext()) {
+			iter.Next()->OnRender();
+		}
+	}
+
+	void LayerStack::Update() {
+		LayerStackIterator iter(this);
+		while (iter.HasNext()) {
+			iter.Next()->OnUpdate();
+		}
+	}
+
     bool LayerStack::IsEmpty() const {
         return stack.empty();
     }
 
+	/*
+		LayerStackIterator
+	*/
 
     LayerStackIterator::LayerStackIterator(LayerStack* stack)
             : stack(stack) {}

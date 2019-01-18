@@ -1,7 +1,9 @@
+#include "../include/Application.hpp"
+#include "../include/Log.hpp"
 
 #include <GLFW/glfw3.h>
 
-#include "../include/Application.hpp"
+#include <cassert>
 
 namespace Greasy {
 
@@ -34,37 +36,41 @@ namespace Greasy {
 
 	void Application::Run() {
 		assert(window);
+		OnStart();
 		while (!window->ShouldClose()) {
 			glClear(GL_COLOR_BUFFER_BIT);
 			glfwPollEvents();
-			Update();
+			OnUpdate();
 		}
 	}
 
-	void Application::Update() {
+	void Application::OnStart() {}
+
+	void Application::OnUpdate() {
 		window->Update();
-		LayerStackIterator iterator(layers);
-		while(iterator.HasNext()) {
-			iterator.Next()->Update();
-		}
+		layers->Update();
 	}
 
-	void Application::Render() {
-		LayerStackIterator iterator(layers);
-		while(iterator.HasNext()) {
-			iterator.Next()->Render();
-		}
+	void Application::OnRender() {
+		layers->Render();
+	}
+
+	void Application::PushLayer(Layer* layer) {
+		layers->Push(layer);
+	}
+
+	Layer* Application::PopLayer() {
+		return layers->Pop();
 	}
 
 	Application& Application::Get() {
 		return *application;
 	}
 
-	void Start() {
+	void Start(Application* application) {
 		assert(!Application::application);
-		Application::application = CreateApplication();
+		Application::application = application;
 		Application::application->Run();
-		delete Application::application;
 	}
 
 }

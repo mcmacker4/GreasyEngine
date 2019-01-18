@@ -1,7 +1,9 @@
 #ifndef H_APPLICATION
 #define H_APPLICATION
 
-#include <Greasy.hpp>
+#include "Core.hpp"
+#include "Window.hpp"
+#include "Layers.hpp"
 
 namespace Greasy {
 
@@ -17,8 +19,9 @@ namespace Greasy {
 		Application();
 		virtual ~Application();
 
-		virtual void Update();
-		virtual void Render();
+		virtual void OnStart();
+		virtual void OnUpdate();
+		virtual void OnRender();
 
 		void PushLayer(Layer*);
 		Layer* PopLayer();
@@ -31,13 +34,13 @@ namespace Greasy {
 
 		void CreateWindow();
 
-		friend void Start();
+		API friend void Start(Application*);
 
 	};
 
-	extern Application* CreateApplication();
+	Application* CreateApplication();
 
-	void Start();
+	API void Start(Application*);
 
 }
 

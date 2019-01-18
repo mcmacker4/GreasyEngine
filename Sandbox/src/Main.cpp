@@ -1,50 +1,75 @@
 #include <Greasy.hpp>
 
-class Sandbox : public Greasy::Application {
-public:
-	void Update();
-};
 
-void Sandbox::Update() {
-	GR_LOG_DEBUG("Sandbox Update");
-	Application::Update();
-}
+
+/*
+	LAYER: Scene
+*/
 
 class Scene : public Greasy::Layer {
-	void Update() override;
-	void Render() override;
+	void OnUpdate();
+	void OnRender();
 };
 
-void Scene::Update() {
-	GR_LOG_DEBUG("Updating Scene");
+void Scene::OnUpdate() {
 }
 
-void Scene::Render() {
+void Scene::OnRender() {
 	GR_LOG_DEBUG("Rendering Scene");
 }
 
+/*
+	LAYER: GUI
+*/
+
 class GUI : public Greasy::Layer {
-	void Update() override;
-	void Render() override;
+	void OnUpdate();
+	void OnRender();
 };
 
-void GUI::Update() {
-	GR_LOG_DEBUG("Updating GUI");
+void GUI::OnUpdate() {
 }
 
-void GUI::Render() {
+void GUI::OnRender() {
 	GR_LOG_DEBUG("Rendering GUI");
+}
+
+/*
+	APPLICATION: Sandbox
+*/
+
+class Sandbox : public Greasy::Application {
+public:
+	void OnStart();
+	void OnUpdate();
+	void OnRender();
+};
+
+void Sandbox::OnStart() {
+	GR_LOG_DEBUG("Sandbox start");
+	PushLayer(new Scene);
+	PushLayer(new GUI);
+}
+
+void Sandbox::OnUpdate() {
+	Application::OnUpdate();
+}
+
+void Sandbox::OnRender() {
+	Application::OnRender();
 }
 
 Greasy::Application* Greasy::CreateApplication() {
 	return new Sandbox();
 }
 
+#if !GR_WINDOWS
+
 int main() {
-	Greasy::Start();
-	auto app = Greasy::Application::Get();
-	auto sceneLayer = new Scene;
-	auto guiLayer = new GUI;
-	app.PushLayer(sceneLayer);
-	app.PushLayer(guiLayer);
+	auto app = Greasy::CreateApplication();
+	Greasy::Start(app);
+
+	delete app;
 }
+
+#endif

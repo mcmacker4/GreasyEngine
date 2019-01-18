@@ -1,6 +1,5 @@
-#include <Greasy.hpp>
-
 #include "../include/Window.hpp"
+#include "../include/Log.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

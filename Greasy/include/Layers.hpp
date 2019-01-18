@@ -1,12 +1,14 @@
 #ifndef H_LAYERS
 #define H_LAYERS
 
+#include <stack>
+
 namespace Greasy {
 
     class Layer {
     public:
-        virtual void Update() = 0;
-        virtual void Render() = 0;
+        virtual void OnUpdate() = 0;
+        virtual void OnRender() = 0;
     };
 
     class LayerStack {
@@ -15,9 +17,10 @@ namespace Greasy {
         void Push(Layer*);
         Layer* Pop();
 
+		void Update();
+		void Render();
+
     private:
-        void Update();
-        void Render();
 
         bool IsEmpty() const;
 
