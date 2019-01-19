@@ -41,6 +41,7 @@ namespace Greasy {
 			glClear(GL_COLOR_BUFFER_BIT);
 			glfwPollEvents();
 			OnUpdate();
+			OnRender();
 		}
 	}
 

@@ -47,8 +47,8 @@ public:
 
 void Sandbox::OnStart() {
 	GR_LOG_DEBUG("Sandbox start");
-	PushLayer(new Scene);
-	PushLayer(new GUI);
+	PushLayer(new Scene());
+	PushLayer(new GUI());
 }
 
 void Sandbox::OnUpdate() {
