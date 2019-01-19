@@ -1,3 +1,4 @@
+buildDir = "%{wks.location}/Build/%{cfg.system}-%{cfg.buildcfg}/%{prj.name}/"
 
 project "glad"
 
@@ -5,6 +6,9 @@ project "glad"
     architecture "x86_64"
 
     kind "StaticLib"
+
+    targetdir(buildDir)
+    objdir(buildDir .. ".obj")
     
     files { "src/glad.c" }
     includedirs { "include/" }

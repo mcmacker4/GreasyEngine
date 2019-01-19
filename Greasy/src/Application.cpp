@@ -1,13 +1,27 @@
+#include "../include/Application.hpp"
+#include "../include/Log.hpp"
 
 #include <GLFW/glfw3.h>
 
-#include "../include/Application.hpp"
+#include <cassert>
 
 namespace Greasy {
 
 	Application* Application::application;
 
-	Application::Application() {}
+	Application::Application() {
+		GR_LOG_INFO("Initializing Application.");
+		try {
+			if (!glfwInit())
+				throw "Could not initialize GLFW.";
+			CreateWindow();
+			assert(window);
+
+			layers = new LayerStack;
+		} catch (const char* msg) {
+			GR_LOG_ERROR(msg);
+		}
+	}
 
 	Application::~Application() {
 		delete window;
@@ -20,40 +34,44 @@ namespace Greasy {
 		this->window = new Window();
 	}
 
-	void Application::Initialize() {
-		GR_LOG_INFO("Initializing Application.");
-		try {
-			if (!glfwInit())
-				throw "Could not initialize GLFW.";
-			CreateWindow();
-			assert(window);
-		} catch (const char* msg) {
-			GR_LOG_ERROR(msg);
-		}
-	}
-
 	void Application::Run() {
 		assert(window);
+		OnStart();
 		while (!window->ShouldClose()) {
 			glClear(GL_COLOR_BUFFER_BIT);
 			glfwPollEvents();
-			Update();
+			OnUpdate();
+			OnRender();
 		}
 	}
 
-	void Application::Update() {
+	void Application::OnStart() {}
+
+	void Application::OnUpdate() {
 		window->Update();
+		layers->Update();
 	}
 
-	void Application::Start() {
-		Application::application = new Application;
-		application->Initialize();
-		application->Run();
-		delete Application::application;
+	void Application::OnRender() {
+		layers->Render();
+	}
+
+	void Application::PushLayer(Layer* layer) {
+		layers->Push(layer);
+	}
+
+	Layer* Application::PopLayer() {
+		return layers->Pop();
 	}
 
 	Application& Application::Get() {
 		return *application;
+	}
+
+	void Start(Application* application) {
+		assert(!Application::application);
+		Application::application = application;
+		Application::application->Run();
 	}
 
 }

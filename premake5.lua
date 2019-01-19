@@ -46,7 +46,6 @@ project "Greasy"
     
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
         defines { "GR_WINDOWS", "GR_DLLEXPORT" }
         systemversion "latest"
     
@@ -89,7 +88,6 @@ project "Sandbox"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
         defines { "GR_WINDOWS" }
         systemversion "latest"
         prebuildcommands {
